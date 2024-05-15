@@ -1,0 +1,38 @@
+<%- include('header.ejs') %>
+
+
+<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+<% if (locals.title.length != 0) { %>
+    <% for (let index=0; index < locals.title.length; index++) { %>       
+    <div class="list-group" id="deleteItem<%= index %>">
+        <label class="list-group-item d-flex gap-2">
+        <input id="checkbox<%= index %>" class="checkbox form-check-input flex-shrink-0" type="checkbox" value="<%= index %>">
+        <span>
+            <%= locals.title[index] %>
+            <small class="d-block text-body-secondary"><%= locals.shortDesc[index] %></small>
+        </span>
+        </label>
+    </div>
+    <% } %>
+    <form action="/deletePost" method="POST">
+        <input id="delete" onclick="deleteClick()" class="btn btn-primary rounded-pill px-3 bg-dark" type="submit" value="Delete">
+        <textarea id="hiddenText" hidden="true" class="form-control" name="Delete" aria-label="With textarea"></textarea>
+    </form>
+<% } else { %>
+    <h1>There is no data to show yet!</h1>
+<% } %>
+</div>
+<script>
+    function deleteClick(){
+        const checkBoxes = $(".checkbox");
+        let submitArray = [];
+        for (let index = 0; index < checkBoxes.length; index++) {
+            if (checkBoxes[index].checked) {
+                submitArray.push(checkBoxes[index].value); 
+            }                   
+        }
+        $("#hiddenText").text(submitArray);
+    }       
+</script>
+
+  <%- include('footer.ejs') %>

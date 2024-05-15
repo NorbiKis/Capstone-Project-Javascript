@@ -1,0 +1,26 @@
+<%- include('header.ejs') %>
+
+<div class="d-flex justify-content-center">
+    <p class="h1">Create new post</p>
+</div>
+
+  <div class="d-flex justify-content-center">
+    <form action="/createPost" method="POST">
+      <span class="input-group-text">Post name and Short Description</span>
+      <input type="text" name="postName" aria-label="Post name" class="form-control">
+      <input type="text" name="shortDesc" aria-label="Short description" class="form-control">
+
+      <span class="input-group-text">Write your new post here!📝</span>
+      <textarea class="form-control" name="blogText" aria-label="With textarea"></textarea>
+
+      <input class="btn btn-primary rounded-pill px-3 bg-dark" type="submit" value="Create">
+    </form>
+  </div>
+
+  <% if (locals.postCreated) { %>
+  <div class="d-flex justify-content-center">
+    <p>Post created!</p>
+  </div>
+  <% } %>
+
+<%- include('footer.ejs') %>

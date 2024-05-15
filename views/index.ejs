@@ -1,0 +1,53 @@
+<%- include('header.ejs') %>
+
+<div
+  class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center"
+>
+  <div class="list-group">
+    <% if (locals.title.length != 0) { %> <% for (let index=0; index <
+    locals.title.length; index++) { %>
+
+    <a
+      id="blog<%= index %>"
+      class="list-group-item list-group-item-action d-flex gap-3 py-3 blog"
+      aria-current="true"
+    >
+      <img src="chat-right-dots-fill.svg" alt="twbs" width="32" height="32" />
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0"><%= title[index] %></h6>
+          <p class="mb-0 opacity-75"><%= shortDesc[index] %></p>
+        </div>
+      </div>
+      <form action="/blog" method="POST">
+        <input
+          id="view<%= index %>"
+          onclick="saveBlogNumber(id)"
+          class="btn btn-primary rounded-pill px-3 bg-dark"
+          type="submit"
+          value="View"
+        />
+        <textarea
+          id="hiddenP<%= index %>"
+          hidden="true"
+          class="form-control"
+          name="blogNumber"
+          aria-label="With textarea"
+        ></textarea>
+      </form>
+    </a>
+
+    <% } %> <% } else { %>
+    <h1>There is no data to show yet!</h1>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  function saveBlogNumber(id) {
+    const index = id.substring(4,id.length);
+    $("#hiddenP" + index).text(id);
+  }
+</script>
+
+<%- include('footer.ejs') %>
